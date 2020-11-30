@@ -183,20 +183,3 @@ jobs:
         run: |
           docker build -f ossutil/1.7.0/Dockerfile -t registry.cn-hangzhou.aliyuncs.com/coderking/ossutil:1.7.0 ossutil/1.7.0/
           docker push registry.cn-hangzhou.aliyuncs.com/coderking/ossutil:1.7.0
-  notify:
-    name: Notify
-    runs-on: ubuntu-latest
-    needs: [ubuntu, mysql-client, nginx, mysql, php, elasticsearch, ossutil]
-    if: always()
-    steps:
-      - name: Feishu Notify
-        uses: foxundermoon/feishu-action@v1
-        if: always()
-        with:
-          url: ${{ secrets.FEISHU_BOT_WEBHOOK }}
-          title: Docker Images Auto Build
-          text: |
-            repository: ${{ github.repository }}
-            committer: ${{ github.actor }}
-            compare: ${{ github.event.compare }}
-            job status: ${{ job.status }}

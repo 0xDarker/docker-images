@@ -189,7 +189,8 @@ jobs:
           content: |
             {
               "title": "Docker镜像自动构建任务",
-              "text": "registry: DockerHub
+              "text": |
+                      "registry: DockerHub
                        repository: [${{ github.repository }}](https://github.com/0xDarker/docker-images/actions)
                        committer: ${{ github.actor }}
                        job status: ${{ job.status }}"

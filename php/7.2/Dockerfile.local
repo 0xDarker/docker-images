@@ -1,4 +1,4 @@
-FROM baijunyao/php:7.2
+FROM coderking/php:7.2
 
 RUN docker-php-ext-install pcntl \
     && pecl install -o -f xdebug \

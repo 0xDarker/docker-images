@@ -1,6 +1,6 @@
 name: DockerHub
 
-on: [push]
+on: [ push ]
 
 jobs:
   ubuntu:
@@ -175,3 +175,21 @@ jobs:
         run: |
           docker build -f ossutil/1.7.0/Dockerfile -t ${{ secrets.DOCKER_HUB_USERNAME }}/ossutil:1.7.0 ossutil/1.7.0/
           docker push ${{ secrets.DOCKER_HUB_USERNAME }}/ossutil:1.7.0
+  notify:
+    name: Notify
+    runs-on: ubuntu-latest
+    needs: [ ubuntu, mysql-client, nginx, mysql, php, elasticsearch, ossutil ]
+    steps:
+      - name: DockerHub images build
+        uses: ghostoy/dingtalk-action@master
+        with:
+          webhook: ${{ secrets.DINGTALK_WEBHOOK}}
+          msgtype: markdown
+          content: |
+            {
+              "title": "Docker镜像自动构建任务",
+              "text": "repository: [${{ github.repository }}](https://github.com/0xDarker/docker-images/actions)\n
+                       committer: ${{ github.actor }}\n
+                       job status: ${{ job.status }}"
+            }
+          secret: ${{ secrets.DINGTALK_WEBHOOK_SECRET}}

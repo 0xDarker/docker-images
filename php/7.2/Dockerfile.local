@@ -1,6 +1,6 @@
 FROM coderking/php:7.2
 
-RUN docker-php-ext-install pcntl \
+RUN docker-php-ext-install pcntl mysqli \
     && pecl install -o -f xdebug \
     && cp /usr/local/etc/php/php.ini-development /usr/local/etc/php/php.ini \
     && printf '%s\n' 'post_max_size=20M' 'upload_max_filesize=20M' >> /usr/local/etc/php/php.ini

@@ -196,7 +196,10 @@ jobs:
           msgtype: markdown
           content: |
             {
-              "title": "AliyunContainerRegistry镜像自动构建任务",
-              "text": "repository: [${{ github.repository }}](https://github.com/0xDarker/docker-images/actions)\ncommitter: ${{ github.actor }}\njob status: ${{ job.status }}"
+              "title": "Docker镜像自动构建任务",
+              "text": "registry: Aliyun
+                       repository: [${{ github.repository }}](https://github.com/0xDarker/docker-images/actions)
+                       committer: ${{ github.actor }}
+                       job status: ${{ job.status }}"
             }
           secret: ${{ secrets.DINGTALK_WEBHOOK_SECRET }}
